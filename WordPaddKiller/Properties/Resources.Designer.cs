@@ -63,6 +63,16 @@ namespace WordPaddKiller.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap ColorPickerIco {
+            get {
+                object obj = ResourceManager.GetObject("ColorPickerIco", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap DownIco {
             get {
                 object obj = ResourceManager.GetObject("DownIco", resourceCulture);
