@@ -13,6 +13,16 @@
         /// <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
         protected override void Dispose(bool disposing)
         {
+            if (!changessaved)
+            {
+                DialogResult result = MessageBox.Show("Do you want to save the changes?", "Information", MessageBoxButtons.YesNoCancel, MessageBoxIcon.Question);
+
+                if (result == DialogResult.Yes)
+                    SaveBtn_Click(null, null);
+                else if (result == DialogResult.Cancel)
+                    return;
+
+            }
             if (disposing && (components != null))
             {
                 components.Dispose();
@@ -49,6 +59,8 @@
             this.FontLabel = new System.Windows.Forms.Label();
             this.ColorPickDialog = new System.Windows.Forms.ColorDialog();
             this.MainTxt = new System.Windows.Forms.TextBox();
+            this.UploadDialog = new System.Windows.Forms.OpenFileDialog();
+            this.SaveDialog = new System.Windows.Forms.SaveFileDialog();
             this.TopPanel.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -87,6 +99,7 @@
             this.CurrentColorLabel.Name = "CurrentColorLabel";
             this.CurrentColorLabel.Size = new System.Drawing.Size(22, 22);
             this.CurrentColorLabel.TabIndex = 17;
+            this.CurrentColorLabel.BackColorChanged += new System.EventHandler(this.CurrentColorLabel_BackColorChanged);
             // 
             // SaveBtn
             // 
@@ -102,6 +115,7 @@
             this.SaveBtn.Text = "Save";
             this.SaveBtn.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
             this.SaveBtn.UseVisualStyleBackColor = false;
+            this.SaveBtn.Click += new System.EventHandler(this.SaveBtn_Click);
             // 
             // UploadBtn
             // 
@@ -117,6 +131,7 @@
             this.UploadBtn.Text = "Upload";
             this.UploadBtn.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
             this.UploadBtn.UseVisualStyleBackColor = false;
+            this.UploadBtn.Click += new System.EventHandler(this.UploadBtn_Click);
             // 
             // ColorPickBtn
             // 
@@ -168,8 +183,10 @@
             this.RightBtn.Name = "RightBtn";
             this.RightBtn.Size = new System.Drawing.Size(24, 26);
             this.RightBtn.TabIndex = 11;
+            this.RightBtn.Tag = System.Windows.Forms.HorizontalAlignment.Right;
             this.RightBtn.Text = "R";
             this.RightBtn.UseVisualStyleBackColor = false;
+            this.RightBtn.Click += new System.EventHandler(this.Aligment_Btns_Clicks);
             // 
             // CenterBtn
             // 
@@ -180,8 +197,10 @@
             this.CenterBtn.Name = "CenterBtn";
             this.CenterBtn.Size = new System.Drawing.Size(24, 26);
             this.CenterBtn.TabIndex = 10;
+            this.CenterBtn.Tag = System.Windows.Forms.HorizontalAlignment.Center;
             this.CenterBtn.Text = "C";
             this.CenterBtn.UseVisualStyleBackColor = false;
+            this.CenterBtn.Click += new System.EventHandler(this.Aligment_Btns_Clicks);
             // 
             // LeftBtn
             // 
@@ -192,8 +211,10 @@
             this.LeftBtn.Name = "LeftBtn";
             this.LeftBtn.Size = new System.Drawing.Size(24, 26);
             this.LeftBtn.TabIndex = 9;
+            this.LeftBtn.Tag = System.Windows.Forms.HorizontalAlignment.Left;
             this.LeftBtn.Text = "L";
             this.LeftBtn.UseVisualStyleBackColor = false;
+            this.LeftBtn.Click += new System.EventHandler(this.Aligment_Btns_Clicks);
             // 
             // AligmentLabel
             // 
@@ -216,6 +237,7 @@
             this.ItalicBtn.TabIndex = 7;
             this.ItalicBtn.Text = "I";
             this.ItalicBtn.UseVisualStyleBackColor = false;
+            this.ItalicBtn.Click += new System.EventHandler(this.FontSyle_Btns_Clicks);
             // 
             // UnderlineBtn
             // 
@@ -228,6 +250,7 @@
             this.UnderlineBtn.TabIndex = 6;
             this.UnderlineBtn.Text = "U";
             this.UnderlineBtn.UseVisualStyleBackColor = false;
+            this.UnderlineBtn.Click += new System.EventHandler(this.FontSyle_Btns_Clicks);
             // 
             // BoldBtn
             // 
@@ -240,6 +263,7 @@
             this.BoldBtn.TabIndex = 5;
             this.BoldBtn.Text = "B";
             this.BoldBtn.UseVisualStyleBackColor = false;
+            this.BoldBtn.Click += new System.EventHandler(this.FontSyle_Btns_Clicks);
             // 
             // FontStyle
             // 
@@ -262,7 +286,8 @@
             this.SizeCombo.Name = "SizeCombo";
             this.SizeCombo.Size = new System.Drawing.Size(54, 23);
             this.SizeCombo.TabIndex = 3;
-            this.SizeCombo.Text = "8";
+            this.SizeCombo.SelectedIndexChanged += new System.EventHandler(this.FontSizeCombo_SelectedIndexChanged);
+            this.SizeCombo.TextChanged += new System.EventHandler(this.SizeCombo_TextChanged);
             // 
             // SizeLabel
             // 
@@ -284,6 +309,8 @@
             this.FontCombo.Name = "FontCombo";
             this.FontCombo.Size = new System.Drawing.Size(144, 23);
             this.FontCombo.TabIndex = 1;
+            this.FontCombo.SelectedIndexChanged += new System.EventHandler(this.FontSizeCombo_SelectedIndexChanged);
+            this.FontCombo.TextChanged += new System.EventHandler(this.FontCombo_TextChanged);
             // 
             // FontLabel
             // 
@@ -345,5 +372,7 @@
         private ColorDialog ColorPickDialog;
         private Label CurrentColorLabel;
         private TextBox MainTxt;
+        private OpenFileDialog UploadDialog;
+        private SaveFileDialog SaveDialog;
     }
 }
